@@ -1,0 +1,33 @@
+{
+  "name": "mercury-bank-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@11.5.1",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build --workspace @mr.dj2u/mercury && npm run build --workspace @mr.dj2u/mercury-ui",
+    "typecheck": "npm run typecheck --workspace @mr.dj2u/mercury && npm run build --workspace @mr.dj2u/mercury && npm run typecheck --workspace @mr.dj2u/mercury-ui",
+    "test": "npm run test --workspace @mr.dj2u/mercury && npm run test --workspace @mr.dj2u/mercury-ui",
+    "ci": "npm run typecheck && npm run test && npm run build",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "publish-packages": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.7",
+    "@types/node": "^24.6.1",
+    "@types/react": "^19.2.10",
+    "@types/react-test-renderer": "^19.1.0",
+    "react": "19.2.0",
+    "react-native": "0.83.2",
+    "react-test-renderer": "19.2.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
