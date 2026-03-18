@@ -1,6 +1,6 @@
 {
     "name": "@mr.dj2u/mercury-ui",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "Standalone Mercury UI workflows extracted from Time2Pay",
     "type": "module",
     "sideEffects": false,
