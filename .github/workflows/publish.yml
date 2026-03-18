@@ -1,19 +1,29 @@
 name: Publish Packages
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
   id-token: write
 
+concurrency:
+  group: publish-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -25,8 +35,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create release PR or prepare publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: npm run version-packages
+          commit: Version Packages
+          title: Version Packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Verify workspace
+        if: steps.changesets.outputs.hasChangesets == 'false'
         run: npm run ci
 
       - name: Publish with Changesets
+        if: steps.changesets.outputs.hasChangesets == 'false'
         run: npm run publish-packages

@@ -5,6 +5,7 @@ export default defineConfig({
   resolve: {
     alias: {
       'react-native': path.resolve(__dirname, 'test/react-native-mock.ts'),
+      '@react-native-picker/picker': path.resolve(__dirname, 'test/picker-mock.tsx'),
     },
   },
   test: {

@@ -11,22 +11,26 @@
   },
   "scripts": {
     "build": "npm run build --workspace @mr.dj2u/mercury && npm run build --workspace @mr.dj2u/mercury-ui",
+    "lint": "eslint .",
     "typecheck": "npm run typecheck --workspace @mr.dj2u/mercury && npm run build --workspace @mr.dj2u/mercury && npm run typecheck --workspace @mr.dj2u/mercury-ui",
     "test": "npm run test --workspace @mr.dj2u/mercury && npm run test --workspace @mr.dj2u/mercury-ui",
-    "ci": "npm run typecheck && npm run test && npm run build",
+    "ci": "npm run lint && npm run typecheck && npm run test && npm run build",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "publish-packages": "changeset publish"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@changesets/cli": "^2.29.7",
     "@types/node": "^24.6.1",
     "@types/react": "^19.2.10",
     "@types/react-test-renderer": "^19.1.0",
+    "eslint": "^9.39.1",
     "react": "19.2.0",
     "react-native": "0.83.2",
     "react-test-renderer": "19.2.0",
     "tsup": "^8.5.0",
+    "typescript-eslint": "^8.46.1",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   }

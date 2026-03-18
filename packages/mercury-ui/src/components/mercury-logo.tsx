@@ -26,6 +26,10 @@ const ratioByVariant = {
   icon: { width: 1, height: 1 },
 } as const;
 
+function resolveImageSource(source: (typeof logoSourceByVariant)[MercuryLogoVariant]) {
+  return typeof source === 'string' ? { uri: source } : source;
+}
+
 export function MercuryLogo({
   variant = 'horizontal',
   size = 132,
@@ -40,7 +44,7 @@ export function MercuryLogo({
 
   const imageNode = (
     <Image
-      source={logoSourceByVariant[variant]}
+      source={resolveImageSource(logoSourceByVariant[variant])}
       style={{ width, height, resizeMode: 'contain' }}
     />
   );

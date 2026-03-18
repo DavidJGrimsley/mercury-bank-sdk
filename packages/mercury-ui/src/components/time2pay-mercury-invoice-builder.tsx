@@ -13,6 +13,7 @@ type Time2PayMercuryInvoiceBuilderProps = {
   status?: InvoiceWizardStatus;
   sourceChildren?: ReactNode;
   footer?: ReactNode;
+  subtitle?: string;
 };
 
 export function Time2PayMercuryInvoiceBuilder({
@@ -24,6 +25,7 @@ export function Time2PayMercuryInvoiceBuilder({
   status,
   sourceChildren,
   footer,
+  subtitle = 'Time2Pay session-based invoice drafting with Mercury invoice settings layered on top.',
 }: Time2PayMercuryInvoiceBuilderProps) {
   return (
     <View
@@ -32,9 +34,7 @@ export function Time2PayMercuryInvoiceBuilder({
     >
       <View className="gap-2">
         <MercuryLogo variant="horizontal" size={280} />
-        <Text style={{ color: '#d4e0d0', fontSize: 15 }}>
-          Time2Pay session-based invoice drafting with Mercury invoice settings layered on top.
-        </Text>
+        <Text style={{ color: '#d4e0d0', fontSize: 15 }}>{subtitle}</Text>
       </View>
 
       {sourceChildren ? (
