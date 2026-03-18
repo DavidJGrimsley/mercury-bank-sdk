@@ -49,7 +49,6 @@ export function MercuryBankOverview({
 }: MercuryBankOverviewProps) {
   const [accounts, setAccounts] = useState<MercuryAccount[]>([]);
   const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<StatusNotice>({
     message: 'Loading Mercury accounts...',
     tone: 'neutral',
@@ -83,7 +82,6 @@ export function MercuryBankOverview({
         return;
       }
 
-      setLoading(true);
       setStatus({ message: 'Loading Mercury accounts...', tone: 'neutral' });
 
       try {
@@ -108,10 +106,6 @@ export function MercuryBankOverview({
           message: error instanceof Error ? error.message : 'Failed to load Mercury accounts.',
           tone: 'error',
         });
-      } finally {
-        if (active) {
-          setLoading(false);
-        }
       }
     }
 
@@ -142,19 +136,26 @@ export function MercuryBankOverview({
         <Text style={{ color: '#d4e0d0', fontSize: 14 }}>{subtitle}</Text>
       </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Text style={{ color: '#d4e0d0', fontSize: 14, fontWeight: '700' }}>Account overview</Text>
-        <Text style={{ color: '#d4e0d0', fontSize: 13 }}>{loading ? 'Loading...' : 'Synced'}</Text>
-      </View>
-
       {accounts.length > 0 ? (
-        <AccountsSelect
-          accounts={accounts}
-          selectedAccountId={selectedAccountId}
-          onSelect={setSelectedAccountId}
-          label="View account"
-          variant="dropdown"
-        />
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+            gap: 16,
+            flexWrap: 'wrap',
+          }}
+        >
+          <Text style={{ color: '#d4e0d0', fontSize: 14, fontWeight: '700' }}>Account overview</Text>
+          <AccountsSelect
+            accounts={accounts}
+            selectedAccountId={selectedAccountId}
+            onSelect={setSelectedAccountId}
+            variant="dropdown"
+            hideLabel
+            dropdownWidth={320}
+          />
+        </View>
       ) : (
         <MercuryStatusNotice message={status.message} tone={status.tone} />
       )}

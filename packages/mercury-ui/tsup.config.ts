@@ -8,5 +8,11 @@ export default defineConfig({
   clean: true,
   target: 'es2022',
   treeshake: true,
+  esbuildOptions(options) {
+    options.loader = {
+      ...(options.loader ?? {}),
+      '.png': 'dataurl',
+    };
+  },
 });
 

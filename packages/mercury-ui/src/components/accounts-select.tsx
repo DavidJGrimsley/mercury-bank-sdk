@@ -1,5 +1,5 @@
 import { Picker } from '@react-native-picker/picker';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View, type DimensionValue } from 'react-native';
 import type { MercuryAccount } from '@mr.dj2u/mercury';
 import { MercuryBadge } from './mercury-badge';
 import { mercuryUiTheme } from '../theme';
@@ -8,8 +8,10 @@ type AccountsSelectProps = {
   accounts: MercuryAccount[];
   selectedAccountId?: string | null;
   onSelect: (accountId: string) => void;
-  label?: string;
+  label?: string | null;
   variant?: 'cards' | 'dropdown';
+  dropdownWidth?: DimensionValue;
+  hideLabel?: boolean;
 };
 
 function resolveAccountId(account: MercuryAccount): string {
@@ -34,13 +36,17 @@ export function AccountsSelect({
   onSelect,
   label = 'Destination account',
   variant = 'cards',
+  dropdownWidth = '100%',
+  hideLabel = false,
 }: AccountsSelectProps) {
   if (variant === 'dropdown') {
     return (
-      <View style={{ gap: 8 }}>
-        <Text style={{ color: mercuryUiTheme.colors.text, fontSize: 13, fontWeight: '700' }}>
-          {label}
-        </Text>
+      <View style={{ gap: hideLabel || !label ? 0 : 8, width: dropdownWidth, maxWidth: '100%' }}>
+        {!hideLabel && label ? (
+          <Text style={{ color: mercuryUiTheme.colors.text, fontSize: 13, fontWeight: '700' }}>
+            {label}
+          </Text>
+        ) : null}
         <View
           style={{
             borderWidth: 1,
@@ -48,13 +54,20 @@ export function AccountsSelect({
             borderRadius: 14,
             backgroundColor: mercuryUiTheme.colors.surface,
             overflow: 'hidden',
+            paddingHorizontal: 8,
+            minHeight: 48,
+            justifyContent: 'center',
           }}
         >
           <Picker
             selectedValue={selectedAccountId ?? (accounts[0] ? resolveAccountId(accounts[0]) : '')}
             onValueChange={(value) => onSelect(String(value))}
             dropdownIconColor={mercuryUiTheme.colors.text}
-            style={{ color: mercuryUiTheme.colors.text, backgroundColor: mercuryUiTheme.colors.surface }}
+            style={{
+              color: mercuryUiTheme.colors.text,
+              backgroundColor: mercuryUiTheme.colors.surface,
+              minHeight: 48,
+            }}
           >
             {accounts.map((account) => {
               const accountId = resolveAccountId(account);
