@@ -24,6 +24,10 @@
                     "test:contract":  "vitest run --config vitest.contract.config.ts",
                     "typecheck":  "tsc -p tsconfig.json --noEmit"
                 },
+    "repository":  {
+                       "type":  "git",
+                       "url":  "https://github.com/DavidJGrimsley/mercury-bank-sdk"
+                   },
     "license":  "MIT",
     "publishConfig":  {
                           "access":  "public"
