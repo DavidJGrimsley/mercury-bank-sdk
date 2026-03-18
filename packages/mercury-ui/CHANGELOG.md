@@ -1,5 +1,11 @@
 # @mr.dj2u/mercury-ui
 
+## 0.2.1
+
+### Patch Changes
+
+- 3ca1653: Fix Mercury web logo asset packaging and tighten the bank account dropdown layout.
+
 ## 0.2.0
 
 ### Minor Changes
